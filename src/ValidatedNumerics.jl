@@ -27,6 +27,7 @@ export
     @interval, @biginterval, @floatinterval, @make_interval,
     get_interval_rounding, set_interval_rounding,
     diam, mid, mag, mig, hull, isinside,
+<<<<<<< HEAD
     emptyinterval, ∅, isempty, ⊊,
     widen,
     set_interval_precision, get_interval_precision,
@@ -36,6 +37,14 @@ export
     midpoint_radius, interval_from_midpoint_radius
 
 ## Root finding
+=======
+    empty_interval, ∅, isempty, ⊊,
+    differentiate, D,  # should these be exported?
+    floatinterval, @floatinterval,
+    Jet
+
+
+>>>>>>> Added multidimintervals.jl
 export
     newton, krawczyk,
     differentiate, D, # should these be exported?
@@ -46,7 +55,18 @@ export
 
 
 
+<<<<<<< HEAD
 ## Includes
+=======
+## Fix some issues with MathConst:
+import Base.MPFR.BigFloat
+BigFloat(a::MathConst) = big(a)
+
+<(a::MathConst, b::MathConst) = float(a) < float(b)
+
+
+## Includes:
+>>>>>>> Added multidimintervals.jl
 
 include("misc.jl")
 include("intervals/intervals.jl")

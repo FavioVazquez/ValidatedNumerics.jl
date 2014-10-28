@@ -68,20 +68,13 @@ const D = differentiate
 
 function jacobian(f, a)
 
-	f1(x) = f(x)[1]
-	f2(x) = f(x)[2]
+    f1(x) = f(x)[1]
+    f2(x) = f(x)[2]
 
-	f11(x1) = f1([x1, a[2]])
-	J11 = D(f11, a[1])
-
-	f12(x2) = f1([a[1], x2])
-	J12 = D(f12, a[2])
-
-	f21(x1) = f2([x1, a[2]])
-	J21 = D(f21, a[1])
-
-	f22(x2) = f2([a[1], x2])
-	J22 = D(f22, a[2])
+    J11 = D(x -> f1([x, b]), a)
+	J12 = D(y -> f1([a, y]), b)
+	J21 = D(x -> f2([x, b]), a)
+	J22 = D(y -> f2([a, y]), b)
 
 	[J11 J12; J21 J22]
 
