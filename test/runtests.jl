@@ -14,6 +14,9 @@ include("misc_tests.jl")
 
 include("interval_tests/interval_tests.jl")
 
+include("multidim_tests/multidim_tests.jl")
+
+
 
 # Root-finding tests:
 

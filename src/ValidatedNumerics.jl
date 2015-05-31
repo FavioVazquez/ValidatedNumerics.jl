@@ -52,6 +52,9 @@ export
     find_roots,
     find_roots_midpoint
 
+## Multidimensional
+export
+    MultiDimInterval
 
 
 
@@ -70,6 +73,7 @@ BigFloat(a::MathConst) = big(a)
 
 include("misc.jl")
 include("intervals/intervals.jl")
+include("multidim/multidim.jl")
 include("root_finding/root_finding.jl")
 
 
