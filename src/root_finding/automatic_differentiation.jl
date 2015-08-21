@@ -66,7 +66,9 @@ differentiate(f::Function) = x -> differentiate(f, x)
 
 const D = differentiate
 
-function jacobian(f, a)
+function jacobian(f, a_vec)
+
+    a, b = a_vec
 
     f1(x) = f(x)[1]
     f2(x) = f(x)[2]
