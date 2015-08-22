@@ -6,11 +6,12 @@ type IntervalBox{T} <: AbstractArray{T, 1}
 
 end
 
-   Base.size(X::IntervalBox) = size(X.intervals)
-       Base.linearindexing(::Type{IntervalBox}) = Base.LinearFast()
-       Base.getindex(X::IntervalBox, i::Int) = X.intervals[i]
+# implement array interface for IntervalBox
+# (see http://julia.readthedocs.org/en/latest/manual/interfaces/):
 
-
+Base.size(X::IntervalBox) = size(X.intervals)
+Base.linearindexing(::Type{IntervalBox}) = Base.LinearFast()
+Base.getindex(X::IntervalBox, i::Int) = X.intervals[i]
 
 
 ..(a, b) = @interval(a, b)
@@ -20,7 +21,10 @@ export ..
 
 IntervalBox(a...) = IntervalBox([a...;])
 
-IntervalBox{T<:FloatingPoint}(a::Vector{T}) = IntervalBox(Interval{eltype(T)}[@interval(x) for x in a])
+IntervalBox{T<:FloatingPoint}(a::Vector{T}) = IntervalBox(Interval{T}[@interval(x) for x in a])
+
+
+-(X::IntervalBox, Y::IntervalBox) = IntervalBox(Interval{eltype(X)}[x-y for (x,y) in zip(X.intervals, Y.intervals)])
 
 
 #IntervalBox(a::Vector) =
