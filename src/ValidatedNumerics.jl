@@ -36,15 +36,18 @@ export
     midpoint_radius, interval_from_midpoint_radius
 
 export
-    newton, krawczyk,
     differentiate, D, # should these be exported?
+    jacobian,
+
+    newton, krawczyk,
+
     Root, is_unique,
     find_roots,
     find_roots_midpoint
 
 ## Multidimensional
 export
-    MultiDimInterval
+    IntervalBox
 
 
 include("misc.jl")
