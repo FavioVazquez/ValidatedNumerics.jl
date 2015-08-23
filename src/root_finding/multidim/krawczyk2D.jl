@@ -12,7 +12,7 @@ $y \in X$ is a real vector
 
 
 
-function Krawczyk2D(f::Function, X::IntervalBox)
+function K(f::Function, X::IntervalBox)
     y = mid(X)
 
     Y = jacobian(f, y)
@@ -27,9 +27,12 @@ end
 f(xx) = ( (x,y) = xx; [x^2+y^2 - 1, x - y^2] )
 X = IntervalBox(0.5..0.8, 0.6..0.9)
 
-for i in 1:10
-    #println("Applying Krawczyk 2D gives ", Krawczyk2D(f, X))
-    X = Krawczyk2D(f, X)
+function Krawczyk(f::Function, X::IntervalBox)
+    for i in 1:10
+    # println("Applying Krawczyk 2D gives ", Krawczyk2D(f, X))
+    KX = K(f, X)
+end
+
 end
 
 println(X)
