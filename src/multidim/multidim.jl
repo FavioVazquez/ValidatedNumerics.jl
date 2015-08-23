@@ -10,8 +10,9 @@ end
 # (see http://julia.readthedocs.org/en/latest/manual/interfaces/):
 
 Base.size(X::IntervalBox) = size(X.intervals)
-Base.linearindexing(::Type{IntervalBox}) = Base.LinearFast()
+Base.linearindexing{T}(::Type{IntervalBox{T}}) = Base.LinearFast()
 Base.getindex(X::IntervalBox, i::Int) = X.intervals[i]
+Base.setindex!(X::IntervalBox, x, i::Int) = X.intervals[i] = x
 
 ..(a, b) = @interval(a, b)
 export ..
@@ -38,7 +39,7 @@ b = IntervalBox(0..2, 3..6)
 @assert a ⊆ b
 
 
-function Base.show{T}(io::IO, X::IntervalBox{T})
+function Base.show(io::IO, X::IntervalBox)
     for (i, x) in enumerate(X)
         print(io, x)
         if i != length(X)
