@@ -1,4 +1,4 @@
-println("MULTIDIM")
+# Multidimensional intervals, called IntervalBox
 
 type IntervalBox{T} <: AbstractArray{Interval{T}, 1}
 

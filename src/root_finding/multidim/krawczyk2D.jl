@@ -30,7 +30,7 @@ function Krawczyk(f::Function, X::IntervalBox)
     KX = K(f, X)
 
     if KX ⊆ X
-        println("Contraction; unique root")
+        #println("Contraction; unique root")
 
         X = KX
 
@@ -49,7 +49,7 @@ function Krawczyk(f::Function, X::IntervalBox)
 
 
     elseif isempty(KX ∩ X)
-        println("No root in X=", X)
+        #println("No root in X=", X)
         return
 
     else
@@ -65,11 +65,24 @@ function Krawczyk(f::Function, X::IntervalBox)
         Y1[i] = Interval(largest.lo, m)
         Y2[i] = Interval(m, largest.hi)
 
-        @show X, Y1, Y2
+        #@show X, Y1, Y2
 
         return vcat(Krawczyk(f, Y1), Krawczyk(f, Y2))
 
     end
+end
+
+
+### Examples
+
+function clean_roots(roots)
+    new_roots = []
+    for root in roots
+        if root != nothing
+            push!(new_roots, root)
+        end
+    end
+    new_roots
 end
 
 # Example from Moore pg. 118
@@ -78,3 +91,20 @@ X = IntervalBox(0.5..0.8, 0.6..0.9)
 
 X = Krawczyk(f, X)
 println("X = ", X)
+
+
+
+f(xx) = ( (x,y) = xx; [x^2+y^2 - 1, (x/2.)^2 + (y/0.5)^2-1] )
+
+X = IntervalBox(-10..10.1, -10..10.1)
+roots = clean_roots(Krawczyk(f, X))
+println(roots)
+
+
+# 3 variables:  http://www.wolframalpha.com/input/?i=solve+x%5E2%2By%5E2%2Bz%5E2-1+%3D+0+and+%28x%2F2%29%5E2%2B%28y%2F0.5%29%5E2+%2B%28z%2F0.75%29%5E2-1+%3D+0+and+y%2Bx%2Bz%3D0
+# need 3x3 Jacobian:
+#f(xx) = ( (x,y,z) = xx; [x^2+y^2+z^2 - 1, (x/2.)^2 + (y/0.5)^2 + (z/0.75)^2-1, x+y+z] )
+
+#X = IntervalBox(-10..10.1, -10..10.1, -10..10.1)
+
+#roots = clean_roots(Krawczyk(f, X))
