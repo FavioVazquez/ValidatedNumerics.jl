@@ -10,7 +10,7 @@ using Compat
 
 import Base:
     +, -, *, /, //,
-    <, >, ==, !=, ⊊, ⊆, ^,
+    <, >, ==, !=, ⊊, ⊆, ^, ∩,
     in, zero, one, abs, real, show,
     sqrt, exp, log, sin, cos, tan, inv,
     asin, acos, atan,
