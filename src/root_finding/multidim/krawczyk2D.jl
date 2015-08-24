@@ -18,7 +18,7 @@ function K(f::Function, X::IntervalBox)
     Y = jacobian(f, y)
     Y = inv(Y)
 
-    F′ = jacobian(f, X)
+    F′ = jacobian(f, X.intervals)
 
     IntervalBox( y - Y * f(y) + (I - Y * F′) * (X.intervals - y) )
 end
@@ -103,8 +103,8 @@ println(roots)
 
 # 3 variables:  http://www.wolframalpha.com/input/?i=solve+x%5E2%2By%5E2%2Bz%5E2-1+%3D+0+and+%28x%2F2%29%5E2%2B%28y%2F0.5%29%5E2+%2B%28z%2F0.75%29%5E2-1+%3D+0+and+y%2Bx%2Bz%3D0
 # need 3x3 Jacobian:
-#f(xx) = ( (x,y,z) = xx; [x^2+y^2+z^2 - 1, (x/2.)^2 + (y/0.5)^2 + (z/0.75)^2-1, x+y+z] )
+f(xx) = ( (x,y,z) = xx; [x^2+y^2+z^2 - 1, (x/2.)^2 + (y/0.5)^2 + (z/0.75)^2-1, x+y+z] )
 
-#X = IntervalBox(-10..10.1, -10..10.1, -10..10.1)
+X = IntervalBox(-10..10.1, -10..10.1, -10..10.1)
 
-#roots = clean_roots(Krawczyk(f, X))
+roots = clean_roots(Krawczyk(f, X))

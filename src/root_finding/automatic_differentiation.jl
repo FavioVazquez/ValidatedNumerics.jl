@@ -13,6 +13,8 @@ Jet{T}(a::T, b::T) = Jet{T}(a, b)
 #     convert, promote_rule, zero, one
 
 convert(::Type{Jet}, c::Real) = Jet(c)
+convert{T<:Real}(::Type{Jet{T}}, c::T) = Jet{T}(c, zero(T))
+
 promote_rule{T<:Real, S<:Real}(::Type{Jet{T}}, ::Type{S}) = Jet
 
 # Constants:
@@ -66,7 +68,18 @@ differentiate(f::Function) = x -> differentiate(f, x)
 
 const D = differentiate
 
-function jacobian(f, a_vec)
+function partial_deriv(f, i, a_vec)
+
+end
+
+partial_function(f, i) = x -> f(x)[i]
+
+replace_variable(a, j, x) = (b = copy(a); b[j] = x)
+
+partial_function(f, i, j, a) = x -> partial_function(f, i)(replace_variable(a,j,x))
+
+
+function jacobian2(f, a_vec)
 
     a, b = a_vec
 
@@ -79,5 +92,27 @@ function jacobian(f, a_vec)
 	J22 = D(y -> f2([a, y]), b)
 
 	[J11 J12; J21 J22]
+
+end
+
+function jacobian{T<:Real}(f::Function, a::Vector{T})   # assume f is R^n->R^n (same n)
+
+    n = length(a)
+    J = Array(T, n, n)
+
+    for i in 1:n  # derivative with respect to this variable
+
+        x = convert(Vector{Jet{T}}, a)
+
+        x[i] = Jet(x[i].val, one(T)) # = Jet(x[i], one(x[i]))  # different
+
+        result = f(x)
+
+        for j in 1:n
+            J[j,i] = result[j].der
+        end
+    end
+
+    J
 
 end
