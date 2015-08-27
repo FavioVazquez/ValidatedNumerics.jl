@@ -11,12 +11,14 @@ $y \in X$ is a real vector
 """
 
 type MultiDimRoot{T}
-    X::IntervalBox{T}
+    interval_box::IntervalBox{T}
 end
+
+Base.show(io::IO, X::MultiDimRoot) = print(io, X.interval_box)
 
 function K(f::Function, X::IntervalBox)
     y = mid(X)
-
+s
     Y = jacobian(f, y)
     Y = inv(Y)
 
@@ -81,9 +83,10 @@ end
 # Example from Moore pg. 118
 f(xx) = ( (x,y) = xx; [x^2+y^2 - 1, x - y^2] )
 X = IntervalBox(0.5..0.8, 0.6..0.9)
+X = IntervalBox(-5..5.1, -5..5.1)
 
-X = Krawczyk(f, X)
-println("X = ", X)
+roots = Krawczyk(f, X)
+println(roots)
 
 
 f(xx) = ( (x,y) = xx; [x^2+y^2 - 1, (x/2.)^2 + (y/0.5)^2-1] )
@@ -100,3 +103,4 @@ f(xx) = ( (x,y,z) = xx; [x^2+y^2+z^2 - 1, (x/2.)^2 + (y/0.5)^2 + (z/0.7)^2-1, x+
 X = IntervalBox(-10..10.1, -10..10.1, -10..10.1)
 
 roots = Krawczyk(f, X)
+println(roots)
