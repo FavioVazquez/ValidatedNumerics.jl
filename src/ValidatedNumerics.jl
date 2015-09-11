@@ -26,7 +26,7 @@ export
     Interval,
     @interval, @biginterval, @floatinterval, @make_interval,
     get_interval_rounding, set_interval_rounding,
-    diam, mid, mag, mig, hull, isinside,
+    diam, mid, mag, mig, hull, ⊔, isinside,
     emptyinterval, ∅, isempty, ⊊,
     widen,
     set_interval_precision, get_interval_precision,

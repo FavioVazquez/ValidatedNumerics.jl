@@ -121,6 +121,8 @@ intersect{T,S}(a::Interval{T}, b::Interval{S}) = intersect(promote(a,b)...)
 hull{T}(a::Interval{T}, b::Interval{T}) = Interval(min(a.lo, b.lo), max(a.hi, b.hi))
 union(a::Interval, b::Interval) = hull(a, b)
 
+⊔ = hull
+
 
 dist(a::Interval, b::Interval) = max(abs(a.lo-b.lo), abs(a.hi-b.hi))
 eps(a::Interval) = max(eps(a.lo), eps(a.hi))
