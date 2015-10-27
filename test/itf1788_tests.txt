@@ -1,0 +1,18 @@
+502  git clone https://github.com/oheim/ITF1788
+  503  pytohn3
+  504  python3
+  505  ls
+  506  cd ITF1788/
+  507  python3 -m itf1788
+  508  ls
+  509  less setup.py
+  510  python3 -m itf1788 --help
+  511  pip install ply
+  512  python3 -m itf1788 --help
+  513  pip3 install ply
+  514  python3 -m itf1788 --help
+  515  pip3 install yam.
+  516  pip3 install yaml
+  517  pip3 install pyyaml
+  518  python3 -m itf1788 --help
+  519  python3 -m itf1788 -c "(julia, *, *)"
