@@ -21,4 +21,10 @@ facts("Rationalize tests") do
 end
 
 
-
+facts("Aliases tests") do
+    IEEE_to_julia = ValidatedNumerics.IEEE_to_julia
+    for IEEE_name in keys(IEEE_to_julia)
+        julia_name = ValidatedNumerics.alias(IEEE_name)
+        @fact julia_name --> IEEE_to_julia[IEEE_name]
+    end
+end
